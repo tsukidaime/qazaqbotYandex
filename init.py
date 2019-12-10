@@ -5,7 +5,7 @@ import logging
 import translate as tsl
 from latin import changetolatin
 import os
-TOKEN='518602096:AAEBbbhtpNRAb8iNwTjRkYNxDyXbxrn-4rM'
+TOKEN='954490538:AAE6NFtZ8ldWU9_tnGytbb6O03FgpoAl9kg'
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -27,16 +27,11 @@ def inline_aydary(update, context):
         results = [
             InlineQueryResultArticle(
                 id=query.upper()+"Cyrillic",
-                title='Cyrillic',
+                title='Translate',
                 input_message_content=InputTextMessageContent(tsl.Translate(query))
-            ),
-            InlineQueryResultArticle(
-                id=query.upper()+"Latin",
-                title='Latin',
-                input_message_content=InputTextMessageContent(changetolatin(tsl.Translate(query)))
             )
         ]
-        update.inline_query.answer(results, cache_time=6000)
+        update.inline_query.answer(results, cache_time=60000)
         cur_users.remove(user)
 
 
