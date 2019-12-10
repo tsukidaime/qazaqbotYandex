@@ -5,17 +5,17 @@ import logging
 import translate as tsl
 from latin import changetolatin
 import os
-TOKEN='518602096:AAEkYXE1WEf64FtgfLQydtq7DhGZGCWLfI0'
+TOKEN='518602096:AAEBbbhtpNRAb8iNwTjRkYNxDyXbxrn-4rM'
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO)
 logger = logging.getLogger(__name__)
 cur_users = []
 bot = telegram.Bot(token=TOKEN)
 
-def error(bot, update, error):
-    logger.warning('Update "%s" caused error "%s"', update, error)
+def error_callback(update, context):
+    logger.warning('Update "%s" caused error "%s"', update, context.error)
 
-def inline_aydary(bot, update):
+def inline_aydary(update, context):
     user = update.inline_query.from_user
     if user in cur_users:
         return
@@ -40,13 +40,14 @@ def inline_aydary(bot, update):
         cur_users.remove(user)
 
 
-updater = Updater(token=TOKEN)
+updater = Updater(token=TOKEN, use_context=True)
 PORT = int(os.environ.get('PORT', '8443'))
 dp = updater.dispatcher
 dp.add_handler(InlineQueryHandler(inline_aydary))
-dp.add_error_handler(error)
+dp.add_error_handler(error_callback)
 updater.start_webhook(listen="0.0.0.0",
                       port=PORT,
                       url_path=TOKEN)
 updater.bot.set_webhook("https://qazaqbot.herokuapp.com/" + TOKEN)
+# updater.start_polling()
 updater.idle()
