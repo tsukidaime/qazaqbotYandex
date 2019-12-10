@@ -4,6 +4,7 @@ from telegram.ext import InlineQueryHandler, Updater
 from telegram.ext.dispatcher import run_async
 import logging
 import translate as tsl
+from uuid import uuid4
 import os
 TOKEN='954490538:AAE6NFtZ8ldWU9_tnGytbb6O03FgpoAl9kg'
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -19,23 +20,16 @@ def error_callback(update, context):
 
 @run_async
 def inline_aydary(update, context):
-    user = update.inline_query.from_user
-    if user in cur_users:
-        return
-    else:
-        query = update.inline_query.query
-        if not query:
-            return
-        cur_users.append(user)
-        results = [
-            InlineQueryResultArticle(
-                id=query.upper()+"Cyrillic",
-                title='Translate',
-                input_message_content=InputTextMessageContent(tsl.Translate(query))
-            )
-        ]
-        update.inline_query.answer(results, cache_time=6000)
-        cur_users.remove(user)
+    query = update.inline_query.query
+    tslText = tsl.Translate(query)
+    results = [
+        InlineQueryResultArticle(
+            id=uuid4(),
+            title="Translate\n{}\n{}".format(query, tslText),
+            input_message_content=InputTextMessageContent(tslText)
+        )
+    ]
+    update.inline_query.answer(results, cache_time=6000)
 
 
 updater = Updater(token=TOKEN, use_context=True)
