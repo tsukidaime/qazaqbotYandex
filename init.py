@@ -3,7 +3,6 @@ from telegram import InlineQueryResultArticle, InputTextMessageContent
 from telegram.ext import InlineQueryHandler, Updater
 import logging
 import translate as tsl
-from latin import changetolatin
 import os
 TOKEN='954490538:AAE6NFtZ8ldWU9_tnGytbb6O03FgpoAl9kg'
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
