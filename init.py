@@ -1,6 +1,7 @@
 import telegram
 from telegram import InlineQueryResultArticle, InputTextMessageContent
 from telegram.ext import InlineQueryHandler, Updater
+from telegram.ext.dispatcher import run_async
 import logging
 import translate as tsl
 import os
@@ -16,6 +17,7 @@ def error_callback(update, context):
     logger.warning('Update "%s" caused error "%s"', update, context.error)
 
 
+@run_async
 def inline_aydary(update, context):
     user = update.inline_query.from_user
     if user in cur_users:
