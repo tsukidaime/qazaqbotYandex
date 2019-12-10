@@ -32,7 +32,7 @@ def inline_aydary(update, context):
                 input_message_content=InputTextMessageContent(tsl.Translate(query))
             )
         ]
-        update.inline_query.answer(results, cache_time=60000)
+        update.inline_query.answer(results, cache_time=6000)
         cur_users.remove(user)
 
 
