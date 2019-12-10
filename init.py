@@ -41,9 +41,9 @@ PORT = int(os.environ.get('PORT', '8443'))
 dp = updater.dispatcher
 dp.add_handler(InlineQueryHandler(inline_aydary))
 dp.add_error_handler(error_callback)
-# updater.start_webhook(listen="0.0.0.0",
-#                       port=PORT,
-#                       url_path=TOKEN)
-# updater.bot.set_webhook("https://qazaqbot.herokuapp.com/" + TOKEN)
-updater.start_polling()
+updater.start_webhook(listen="0.0.0.0",
+                      port=PORT,
+                      url_path=TOKEN)
+updater.bot.set_webhook("https://qazaqbot.herokuapp.com/" + TOKEN)
+# updater.start_polling()
 updater.idle()
