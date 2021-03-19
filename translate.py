@@ -5,4 +5,4 @@ translate = YandexTranslate('trnsl.1.1.20191210T100948Z.67a2ac42cb051b0f.11b5efa
 def Translate(text):
     if isinstance(text, six.binary_type):
         text = text.decode('utf-8')
-    return translate.translate(text, 'en')['text'][0]
+    return translate.translate(text, 'kk')['text'][0]
